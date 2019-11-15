@@ -41,7 +41,7 @@ public class Projecto extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();*/
         
-        //Digraph bosta = new Digraph
+        Digraph bosta = new Digraph
     }
 
     /**

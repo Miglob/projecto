@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package adtgraph.adt;
+package projecto.TADDiGraph;
 
 /**
  * A vertex contains an element of type <code>V</code> and is used both in

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package adtgraph.adt;
+package projecto.TADDiGraph;
 
 /**
  * Error when using an invalid vertex in calls of methods in {@link Graph}
