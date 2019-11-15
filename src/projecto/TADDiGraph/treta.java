@@ -11,5 +11,5 @@ package projecto.TADDiGraph;
  */
 public class treta implements Digraph {
     
-    
+    //lol
 }
