@@ -5,6 +5,7 @@
  */
 package projecto;
 
+import adtgraph.adt.Digraph;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,7 +22,7 @@ public class Projecto extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        Button btn = new Button();
+        /*Button btn = new Button();
         btn.setText("Say 'Hello World'");
         btn.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -38,7 +39,9 @@ public class Projecto extends Application {
         
         primaryStage.setTitle("Hello World!");
         primaryStage.setScene(scene);
-        primaryStage.show();
+        primaryStage.show();*/
+        
+        //Digraph bosta = new Digraph
     }
 
     /**
