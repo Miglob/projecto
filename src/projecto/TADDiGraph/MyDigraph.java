@@ -208,6 +208,22 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         return newElement;
     }
 
+    @Override
+    public String toString() {
+        String str = "Edge\n";
+        for (Edge<E, V> edge : listEdges.values()) {
+            str += edge.toString() + "\n";
+        }
+
+        str += "\nVertex\n";
+
+        for (Vertex<V> vertex : listVertices.values()) {
+            str += vertex.toString() + "\n";
+        }
+
+        return str;
+    }
+
     private MyVertex checkVertex(Vertex<V> p) throws InvalidVertexException {
 
         if (p == null) {
@@ -313,7 +329,7 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
 
         @Override
         public String toString() {
-            return elem.toString();
+            return vertices()[0].toString() + " -> " + elem.toString() + " -> " + vertices()[1].toString();
         }
 
         @Override

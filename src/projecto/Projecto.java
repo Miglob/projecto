@@ -27,7 +27,10 @@ public class Projecto extends Application {
     public void start(Stage primaryStage) {
         
         try {
-            new WebCrawler().automaticModelCreation("https://www.google.pt", 20);
+            WebCrawler webcrawler = new WebCrawler();
+            webcrawler.automaticModelCreation("https://www.google.pt", 20);
+            
+            System.out.println(webcrawler.getDigraph().toString());
 //            new WebCrawler().bosta("https://www.google.pt");
             
             

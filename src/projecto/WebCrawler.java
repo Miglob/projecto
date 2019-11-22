@@ -55,7 +55,7 @@ public class WebCrawler {
         Vertex outbound = null;
         Page referencedPage = null;
 
-        while (!queue.isEmpty()) {
+        while (!queue.isEmpty() && currentNumberOfVisitedPages < numMaxPages) {
             urlAddress = queue.poll();
             page = openUrlAndGetPage(urlAddress);
             Vertex inbound = getDigraph().insertVertex(page);
@@ -106,38 +106,6 @@ public class WebCrawler {
         Document doc = Jsoup.connect(url).get();
 
         return doc.select("a[href]");
-    }
-
-    private void openUrlAndShowTitleAndLinks(String urlAddress) throws IOException {
-
-        Document doc = Jsoup.connect(urlAddress).get();
-
-        Elements links = doc.select("a[href]");
-        print("\nLinks: (%d)", links.size());
-        for (Element link : links) {
-            //abs:href is important, so it transforms relative paths, e.g., href="../home.html"
-            //into the full address, e.g., "www.example.com/home.html".
-            print("[%s]: %s  ", link.text(), link.attr("abs:href"));
-        }
-    }
-
-    public void bosta(String urlAddress) throws IOException {
-
-        Document doc = Jsoup.connect(urlAddress).get();
-        String title = doc.title();
-        print("PAGE TITLE: %s \n", title);
-
-        Elements links = doc.select("a[href]");
-        print("\nLinks: (%d)", links.size());
-        for (Element link : links) {
-            //abs:href is important, so it transforms relative paths, e.g., href="../home.html"
-            //into the full address, e.g., "www.example.com/home.html".
-            print("[%s]: %s ", link.text(), link.attr("abs:href"));
-        }
-    }
-
-    private static void print(String msg, Object... args) {
-        System.out.println(String.format(msg, args));
-    }
+    }    
 
 }

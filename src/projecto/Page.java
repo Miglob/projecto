@@ -44,19 +44,23 @@ public class Page {
     public void setUrl(String url) {
         this.url = url;
     }
-    
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || obj.getClass() != this.getClass()) {
+            return false;
+        }
+
+        Page page = (Page) obj;
+
+        return (page.getTitle() == this.getTitle() && page.getUrl() == this.getUrl());
+    }
     
     @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null || obj.getClass() != this.getClass()) {
-                return false;
-            }
-
-            Page page = (Page) obj;
-
-            return (page.getTitle() == this.getTitle() && page.getUrl() == this.getUrl());
-        }
+    public String toString(){
+        return "[" + this.title + "]";
+    }
 }
