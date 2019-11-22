@@ -80,7 +80,7 @@ public interface Graph<V, E> {
      * 
      * @return      collection of edges
      */
-    public Collection<Edge<E, V>> incidentEdges(Vertex<V> v)
+    public Iterable<Edge<E, V>> incidentEdges(Vertex<V> v)
             throws InvalidVertexException;
 
     /**

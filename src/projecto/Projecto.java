@@ -5,7 +5,10 @@
  */
 package projecto;
 
-import adtgraph.adt.Digraph;
+
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -22,26 +25,38 @@ public class Projecto extends Application {
     
     @Override
     public void start(Stage primaryStage) {
-        /*Button btn = new Button();
-        btn.setText("Say 'Hello World'");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        
+        try {
+            new WebCrawler().automaticModelCreation("https://www.google.pt", 20);
+//            new WebCrawler().bosta("https://www.google.pt");
+            
+            
+            
+            
+            
+            /*Button btn = new Button();
+            btn.setText("Say 'Hello World'");
+            btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
+            System.out.println("Hello World!");
             }
-        });
+            });
+            
+            StackPane root = new StackPane();
+            root.getChildren().add(btn);
+            
+            Scene scene = new Scene(root, 300, 250);
+            
+            primaryStage.setTitle("Hello World!");
+            primaryStage.setScene(scene);
+            primaryStage.show();*/
+        } catch (IOException ex) {
+            Logger.getLogger(Projecto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        StackPane root = new StackPane();
-        root.getChildren().add(btn);
-        
-        Scene scene = new Scene(root, 300, 250);
-        
-        primaryStage.setTitle("Hello World!");
-        primaryStage.setScene(scene);
-        primaryStage.show();*/
-        
-        Digraph bosta = new Digraph
+       
     }
 
     /**
