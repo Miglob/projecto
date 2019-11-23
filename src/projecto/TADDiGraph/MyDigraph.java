@@ -33,14 +33,14 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         if (!this.listVertices.containsValue(inbound)) {
             throw new InvalidVertexException("Vertice não existe.");
         }
-        HashSet<Edge<E, V>> set = new HashSet<>();
+        ArrayList<Edge<E, V>> list = new ArrayList<>();
         for (Edge<E, V> edge : listEdges.values()) {
             if (edge.vertices()[0].equals(inbound) || edge.vertices()[1].equals(inbound)) {
-                set.add(edge);
+                list.add(edge);
 
             }
         }
-        return set;
+        return list;
     }
 
     @Override
@@ -87,7 +87,7 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
                 throw new InvalidVertexException("O elemento já está presente na aresta existente");
             }
         }
-        MyEdge newEdge = new MyEdge(edgeElement, outbound, inbound);
+        MyEdge newEdge = new MyEdge(edgeElement, inbound, outbound);
         listEdges.put(edgeElement, newEdge);
         return newEdge;
     }
@@ -134,6 +134,11 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
             return vertices[0];
         }
         throw new InvalidVertexException("vertice inválido");
+    }
+    
+     public Vertex<V> getVertex(V vElement) throws InvalidVertexException {
+
+        return listVertices.get(vElement);
     }
 
     @Override
@@ -210,12 +215,12 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
 
     @Override
     public String toString() {
-        String str = "Edge\n";
+        String str = "Edge (" + listEdges.size() + ")\n";
         for (Edge<E, V> edge : listEdges.values()) {
             str += edge.toString() + "\n";
         }
 
-        str += "\nVertex\n";
+        str += "\nVertex (" + listVertices.size() + ")\n";
 
         for (Vertex<V> vertex : listVertices.values()) {
             str += vertex.toString() + "\n";
@@ -329,8 +334,11 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
 
         @Override
         public String toString() {
-            return vertices()[0].toString() + " -> " + elem.toString() + " -> " + vertices()[1].toString();
-        }
+            //System.out.printf( "%-15s %15s %n", heading1, heading2);
+//            return vertices()[0].toString() + " -> " + elem.toString() + " -> " + vertices()[1].toString();
+        
+            return String.format("%-30s -> %-160s -> %-30s", vertices()[0].toString(), elem.toString(), vertices()[1].toString());
+           }
 
         @Override
         public boolean equals(Object obj) {

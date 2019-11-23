@@ -45,13 +45,45 @@ public class MyDigraphTest {
      */
     @Test
     public void testIncidentEdges() {
-//        System.out.println("incidentEdges");
-//        MyDigraph instance = new MyDigraph();
-//        Collection<Edge<E, V>> expResult = null;
-//        Collection<Edge<E, V>> result = instance.incidentEdges(null);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+        System.out.println("incidentEdges");
+        MyDigraph instance = new MyDigraph();
+
+        Object v1Element = 44;
+        Object v2Element = 55;
+        Object v3Element = 66;
+
+        Vertex v1 = instance.insertVertex(v1Element);
+        Vertex v2 = instance.insertVertex(v2Element);
+        Vertex v3 = instance.insertVertex(v3Element);
+
+        int expectedResult = 0;
+        int resultV1 = instance.incidentEdges(v1).size();
+        int resultV2 = instance.incidentEdges(v2).size();
+        int resultV3 = instance.incidentEdges(v3).size();
+
+        assertEquals(expectedResult, resultV1);
+        assertEquals(expectedResult, resultV2);
+        assertEquals(expectedResult, resultV3);
+
+        Object e1Element = "A";
+        Object e2Element = "B";
+
+        Edge e1 = instance.insertEdge(v1, v2, e1Element);
+        Edge e2 = instance.insertEdge(v1, v3, e2Element);
+
+        expectedResult = 2;
+
+        resultV1 = instance.incidentEdges(v1).size();
+
+        assertEquals(expectedResult, resultV1);
+
+        expectedResult = 1;
+
+        resultV2 = instance.incidentEdges(v2).size();
+        resultV3 = instance.incidentEdges(v3).size();
+
+        assertEquals(expectedResult, resultV2);
+        assertEquals(expectedResult, resultV3);
     }
 
     /**
@@ -282,14 +314,21 @@ public class MyDigraphTest {
      */
     @Test
     public void testInsertVertex() {
-//        System.out.println("insertVertex");
-//        Object vElement = null;
-//        MyDigraph instance = new MyDigraph();
-//        Vertex expResult = null;
-//        Vertex result = instance.insertVertex(vElement);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+        System.out.println("insertVertex");
+        MyDigraph instance = new MyDigraph();
+
+        int expectedResult = 0;
+        int result = instance.numVertices();
+
+        assertEquals(expectedResult, result);
+
+        Object v1Element = 1;
+        Vertex v1 = instance.insertVertex(v1Element);
+
+        expectedResult = 1;
+        result = instance.numVertices();
+
+        assertEquals(expectedResult, result);
     }
 
     /**
@@ -297,13 +336,28 @@ public class MyDigraphTest {
      */
     @Test
     public void testRemoveVertex() {
-//        System.out.println("removeVertex");
-//        MyDigraph instance = new MyDigraph();
-//        Object expResult = null;
-//        Object result = instance.removeVertex(null);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+        System.out.println("removeVertex");
+        MyDigraph instance = new MyDigraph();
+
+        int expectedResult = 0;
+        int result = instance.numVertices();
+
+        assertEquals(expectedResult, result);
+
+        Object v1Element = 1;
+        Vertex v1 = instance.insertVertex(v1Element);
+
+        expectedResult = 1;
+        result = instance.numVertices();
+
+        assertEquals(expectedResult, result);
+
+        instance.removeVertex(v1);
+
+        expectedResult = 0;
+        result = instance.numVertices();
+
+        assertEquals(expectedResult, result);
     }
 
     /**
@@ -311,13 +365,34 @@ public class MyDigraphTest {
      */
     @Test
     public void testRemoveEdge() {
-//        System.out.println("removeEdge");
-//        MyDigraph instance = new MyDigraph();
-//        Object expResult = null;
-//        Object result = instance.removeEdge(null);
-//        assertEquals(expResult, result);
-//        // TODO review the generated test code and remove the default call to fail.
-//        fail("The test case is a prototype.");
+        System.out.println("removeEdge");
+        MyDigraph instance = new MyDigraph();
+
+        int expectedResult = 0;
+        int result = instance.numEdges();
+
+        assertEquals(expectedResult, result);
+
+        Object v1Element = 1;
+        Object v2Element = 2;
+
+        Vertex v1 = instance.insertVertex(v1Element);
+        Vertex v2 = instance.insertVertex(v2Element);
+
+        Object edgeElement = "A";
+        Edge e = instance.insertEdge(v1Element, v2Element, edgeElement);
+
+        expectedResult = 1;
+        result = instance.numEdges();
+
+        assertEquals(expectedResult, result);
+
+        instance.removeEdge(e);
+
+        expectedResult = 0;
+        result = instance.numEdges();
+
+        assertEquals(expectedResult, result);
     }
 
     /**
@@ -350,10 +425,10 @@ public class MyDigraphTest {
 
         Object v1Element = 1;
         Object v2Element = 2;
-        
+
         Vertex v1 = instance.insertVertex(v1Element);
         Vertex v2 = instance.insertVertex(v2Element);
-        
+
         Object edgeElement = "A";
         Edge e = instance.insertEdge(v1, v2, edgeElement);
 

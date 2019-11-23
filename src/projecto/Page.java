@@ -56,7 +56,15 @@ public class Page {
 
         Page page = (Page) obj;
 
-        return (page.getTitle() == this.getTitle() && page.getUrl() == this.getUrl());
+        return (page.getTitle().equals(title) && page.getUrl().equals(url));
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * result + this.getTitle().hashCode();
+        result = 31 * result + this.getUrl().hashCode();
+        return result;
     }
     
     @Override

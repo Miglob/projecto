@@ -5,7 +5,6 @@
  */
 package projecto;
 
-
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,23 +21,20 @@ import javafx.stage.Stage;
  * @author Miglob
  */
 public class Projecto extends Application {
-    
+
     @Override
     public void start(Stage primaryStage) {
-        
+
         try {
             WebCrawler webcrawler = new WebCrawler();
-            webcrawler.automaticModelCreation("https://www.google.pt", 20);
+            webcrawler.automaticModelCreation("https://www.google.pt", 40);
+
+            new WebCrawlerStatistics(webcrawler.getDigraph()).printStatistics();
+                    
             
-            System.out.println(webcrawler.getDigraph().toString());
-//            new WebCrawler().bosta("https://www.google.pt");
-            
-            
-            
-            
-            
+                    
             /*Button btn = new Button();
-            btn.setText("Say 'Hello World'");
+            btn.setText("Say 'Hello World'")
             btn.setOnAction(new EventHandler<ActionEvent>() {
             
             @Override
@@ -58,8 +54,7 @@ public class Projecto extends Application {
         } catch (IOException ex) {
             Logger.getLogger(Projecto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-       
+
     }
 
     /**
@@ -68,5 +63,5 @@ public class Projecto extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
