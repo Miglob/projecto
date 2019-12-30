@@ -21,23 +21,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-package projecto.TADDiGraph;
+package projecto.model.TADDiGraph;
 
 /**
- * Error when using an invalid edge in calls of methods in {@link Graph}
- * and {@link Digraph} implementations.
+ * A vertex contains an element of type <code>V</code> and is used both in
+ * graphs and digraphs.
+ * 
+ * @param <V> Type of value stored in the vertex.
  * 
  * @see Graph
  * @see Digraph
  */
-public class InvalidEdgeException extends RuntimeException {
-
-    public InvalidEdgeException() {
-        super("The edge is invalid or does not belong to this graph.");
-    }
-
-    public InvalidEdgeException(String string) {
-        super(string);
-    }
+public interface Vertex<V> {
     
+    /**
+     * Returns the element stored in the vertex.
+     * 
+     * @return      stored element
+     */
+    public V element();
 }

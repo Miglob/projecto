@@ -5,13 +5,14 @@
  */
 package projecto;
 
+import projecto.model.WebCrawler;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projecto.TADDiGraph.MyDigraph;
+import projecto.model.TADDiGraph.MyDigraph;
 
 /**
  *

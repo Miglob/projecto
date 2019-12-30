@@ -5,6 +5,8 @@
  */
 package projecto;
 
+import projecto.model.WebCrawler;
+import projecto.model.WebCrawlerStatistics;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
