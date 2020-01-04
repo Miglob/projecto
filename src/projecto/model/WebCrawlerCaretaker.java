@@ -5,13 +5,14 @@
  */
 package projecto.model;
 
+import java.io.Serializable;
 import java.util.Stack;
 
 /**
  *
  * @author Miglob
  */
-public class WebCrawlerCaretaker {
+public class WebCrawlerCaretaker implements Serializable{
 
     private Stack<WebCrawlerMemento> stackMementos;
 
@@ -26,14 +27,12 @@ public class WebCrawlerCaretaker {
     }
 
     public void restoreState(WebCrawlerOriginator originator) {
-
-        if (stackMementos.size() > 1) {
-
-            stackMementos.pop();
+        
+        System.out.println("----------------------------antes" + stackMementos.size());
+        
             WebCrawlerMemento memento = stackMementos.pop();
-            stackMementos.push(memento);
-            originator.setMemento(memento);// o penultimo é o estado anterior
-        }
+            originator.setMemento(memento);            
+            
+        System.out.println("----------------------------depois" + stackMementos.size());
     }
-
 }

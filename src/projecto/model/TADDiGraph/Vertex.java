@@ -40,4 +40,8 @@ public interface Vertex<V> {
      * @return      stored element
      */
     public V element();
+    @Override
+    public boolean equals(Object obj);
+    @Override
+    public int hashCode();
 }

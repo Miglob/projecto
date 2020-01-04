@@ -5,6 +5,8 @@
  */
 package projecto.model;
 
+import java.io.Serializable;
+
 /**
  * Classe que cria uma pagina, vertice, sendo-lhe dada como atributos um titulo, um url e 
  * um atributo para ver se a pagina existe
@@ -12,7 +14,7 @@ package projecto.model;
  * 
  * @author Miglob
  */
-public class Page {
+public class Page implements Serializable{
 
     private String title;
     private String url;

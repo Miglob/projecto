@@ -5,25 +5,28 @@
  */
 package projecto.model.TADDiGraph;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import projecto.model.Page;
 
 /**
- * Classe que implementa os métodos da interface Digraph.
- * Contem a implementação das interfaces Graph e Edge traduzidas em classes 
- * privadas.
- * 
- * Cria uma colecção que representa a lista de vertices e outra que representa 
+ * Classe que implementa os métodos da interface Digraph. Contem a implementação
+ * das interfaces Graph e Edge traduzidas em classes privadas.
+ *
+ * Cria uma colecção que representa a lista de vertices e outra que representa
  * uma lista de arestas
- *   
- * 
+ *
+ *
  * @author Miguel lobato
  */
-public class MyDigraph<V, E> implements Digraph<V, E> {
+public class MyDigraph<V, E> implements Digraph<V, E>, Serializable {
 
     private Map<V, Vertex<V>> listVertices;
     private Map<E, Edge<E, V>> listEdges;
@@ -33,14 +36,43 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         listVertices = new HashMap<>();
         listEdges = new HashMap<>();
     }
-/**
- * Método para obter as arestas incidentes a determinado vertice.
- * 
- * @param inbound vertice para obter a aresta incidente
- * @return Retorna uma colecção de arestas incidentes de um vertice. Se não existirem retorna 
- *          uma colecção vazia.
- * @throws InvalidVertexException erro para vertice errado na chamada dos metodos
- */ 
+
+    @Override
+    public Object clone() {
+        //return super.clone();
+        MyDigraph clone = new MyDigraph();
+        Map<V, Vertex<V>> cloneListVertices = new HashMap<>();
+        for (V key : listVertices.keySet()) {
+            cloneListVertices.put(key, listVertices.get(key));
+        }
+        clone.setListVertices(cloneListVertices);
+        Map<E, Edge<E, V>> cloneListEdges = new HashMap<>();
+        for (E key : listEdges.keySet()) {
+            cloneListEdges.put(key, listEdges.get(key));
+        }
+        
+        clone.setListEdges(cloneListEdges);
+        
+        return clone;
+    }
+
+    public void setListVertices(Map<V, Vertex<V>> listVertices) {
+        this.listVertices = listVertices;
+    }
+
+    public void setListEdges(Map<E, Edge<E, V>> listEdges) {
+        this.listEdges = listEdges;
+    }
+
+    /**
+     * Método para obter as arestas incidentes a determinado vertice.
+     *
+     * @param inbound vertice para obter a aresta incidente
+     * @return Retorna uma colecção de arestas incidentes de um vertice. Se não
+     * existirem retorna uma colecção vazia.
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * metodos
+     */
     @Override
     public Collection<Edge<E, V>> incidentEdges(Vertex<V> inbound) throws InvalidVertexException {
 
@@ -56,14 +88,17 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         }
         return list;
     }
-/**
- * Método para obter as arestas de saída de um vertice.
- * 
- * @param outbound para obter as arestas de saída de um vertice.
- * 
- * @return Retorna uma colecção de arestas de saída de um vertice. Se não existirem retorna uma colecção vazia
- * @throws InvalidVertexException erro para vertice errado na chamada dos metodos
- */
+
+    /**
+     * Método para obter as arestas de saída de um vertice.
+     *
+     * @param outbound para obter as arestas de saída de um vertice.
+     *
+     * @return Retorna uma colecção de arestas de saída de um vertice. Se não
+     * existirem retorna uma colecção vazia
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * metodos
+     */
     @Override
     public Collection<Edge<E, V>> outboundEdges(Vertex<V> outbound) throws InvalidVertexException {
 
@@ -79,14 +114,16 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         }
         return outboundEdges;
     }
-/**
- * Metodo para verificar se os vertices são adjacentes
- * 
- * @param outbound para obter o vertice com arestas de saída.   
- * @param inbound  para obter o vertice com as arestas incidentes.
- * @return false  se as arestas não são adjacentes.
- * @throws InvalidVertexException erro para vertice errado na chamada dos metodos
- */
+
+    /**
+     * Metodo para verificar se os vertices são adjacentes
+     *
+     * @param outbound para obter o vertice com arestas de saída.
+     * @param inbound para obter o vertice com as arestas incidentes.
+     * @return false se as arestas não são adjacentes.
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * metodos
+     */
     @Override
     public boolean areAdjacent(Vertex<V> outbound, Vertex<V> inbound) throws InvalidVertexException {
 
@@ -102,15 +139,19 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         return false;
 
     }
-/**
- * Metodo para inserir uma aresta entre dois vertices definidos.
- * @param outbound para obter o vertice com arestas de saída.
- * @param inbound para obter o vertice com as arestas incidentes.
- * @param edgeElement a aresta que vai ficar ligada entre os dois vertices.
- * @return a aresta que foi inserida entre os dois vertices.
- * @throws InvalidVertexException erro para vertice errado na chamada dos metodos
- * @throws InvalidEdgeException erro para aresta errada na chamada dos métodos.
- */
+
+    /**
+     * Metodo para inserir uma aresta entre dois vertices definidos.
+     *
+     * @param outbound para obter o vertice com arestas de saída.
+     * @param inbound para obter o vertice com as arestas incidentes.
+     * @param edgeElement a aresta que vai ficar ligada entre os dois vertices.
+     * @return a aresta que foi inserida entre os dois vertices.
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * metodos
+     * @throws InvalidEdgeException erro para aresta errada na chamada dos
+     * métodos.
+     */
     @Override
     public Edge<E, V> insertEdge(Vertex<V> outbound, Vertex<V> inbound, E edgeElement) throws InvalidVertexException, InvalidEdgeException {
 
@@ -127,73 +168,84 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         listEdges.put(edgeElement, newEdge);
         return newEdge;
     }
-/**
- * Metodo para inserir uma aresta entre dois vertices.
- * 
- * @param outboundElement um vertice para a saída da aresta.
- * @param inboundElement um vertice para a aresta que vai incidir.
- * @param edgeElement a aresta a ser colocada entre os dois vertices.
- * @return os vertices com a aresta que foi introduzida.
- * @throws InvalidVertexException erro para vertice errado na chamada dos metodos
- * @throws InvalidEdgeException erro para aresta errada na chamada dos métodos.
- */
- 
+
+    /**
+     * Metodo para inserir uma aresta entre dois vertices.
+     *
+     * @param outboundElement um vertice para a saída da aresta.
+     * @param inboundElement um vertice para a aresta que vai incidir.
+     * @param edgeElement a aresta a ser colocada entre os dois vertices.
+     * @return os vertices com a aresta que foi introduzida.
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * metodos
+     * @throws InvalidEdgeException erro para aresta errada na chamada dos
+     * métodos.
+     */
+
     @Override
     public Edge<E, V> insertEdge(V outboundElement, V inboundElement, E edgeElement) throws InvalidVertexException, InvalidEdgeException {
 
         return insertEdge(listVertices.get(outboundElement), listVertices.get(inboundElement), edgeElement);
 
     }
-/**
- * Método para calcular o número de vertices do grafo
- * 
- * @return Retorna o número de vertices do grafo
- */
+
+    /**
+     * Método para calcular o número de vertices do grafo
+     *
+     * @return Retorna o número de vertices do grafo
+     */
     @Override
     public int numVertices() {
 
         return listVertices.size();
 
     }
-/**
- * Método para calcular o número de arestas de um grafo.
- * 
- * @return Retorna o número de arestas de um grafo.
- */
+
+    /**
+     * Método para calcular o número de arestas de um grafo.
+     *
+     * @return Retorna o número de arestas de um grafo.
+     */
     @Override
     public int numEdges() {
         return listEdges.size();
     }
-/**
- * Metodo que faz uma iteração sobre uma colecção de vertices.
- * 
- * @return Retorna a iteração da colecção de vertices.
- */
+
+    /**
+     * Metodo que faz uma iteração sobre uma colecção de vertices.
+     *
+     * @return Retorna a iteração da colecção de vertices.
+     */
     @Override
     public Collection<Vertex<V>> vertices() {
 
         return listVertices.values();
     }
-/**
- * Método que faz uma iteração sobre uma colecção de arestas.
- * 
- * @return Retorna a iteração da colecção de arestas.
- */
+
+    /**
+     * Método que faz uma iteração sobre uma colecção de arestas.
+     *
+     * @return Retorna a iteração da colecção de arestas.
+     */
     @Override
     public Collection<Edge<E, V>> edges() {
 
         return listEdges.values();
     }
-/**
- * Metodo que através de um vertice e de uma aresta nos dá o vertice opsto ao primeiro.
- * 
- * @param v vertice conhecido.
- * @param e aresta comhecida.
- * @return Retorna o vertice oposto caso ele seja válido.
- * @throws InvalidVertexException erro para vertice errado na chamada dos métodos.
- * @throws InvalidEdgeException erro para aresta errada na chamada dos métodos.
- */
- 
+
+    /**
+     * Metodo que através de um vertice e de uma aresta nos dá o vertice opsto
+     * ao primeiro.
+     *
+     * @param v vertice conhecido.
+     * @param e aresta comhecida.
+     * @return Retorna o vertice oposto caso ele seja válido.
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * métodos.
+     * @throws InvalidEdgeException erro para aresta errada na chamada dos
+     * métodos.
+     */
+
     @Override
     public Vertex<V> opposite(Vertex<V> v, Edge<E, V> e) throws InvalidVertexException, InvalidEdgeException {
 
@@ -206,26 +258,31 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         }
         throw new InvalidVertexException("vertice inválido");
     }
-/**
- * Método para obter um dado vertice através da sua chave.
- * 
- * @param vElement o vertice desejado.
- * @return o valor de determinado vertice ou null se não existir esta chave.
- * @throws InvalidVertexException erro para vertice errado na chamada dos métodos.
- */
 
-     public Vertex<V> getVertex(V vElement) throws InvalidVertexException {
+    /**
+     * Método para obter um dado vertice através da sua chave.
+     *
+     * @param vElement o vertice desejado.
+     * @return o valor de determinado vertice ou null se não existir esta chave.
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * métodos.
+     */
+
+    public Vertex<V> getVertex(V vElement) throws InvalidVertexException {
 
         return listVertices.get(vElement);
     }
-/**
- * Método para inserir determinado vertice no grafo. Lança uma excepção caso o vertice já exista.
- * 
- * @param vElement o vertice a ser inserido.
- * @return o vertice que foi criado e inserido no grafo. 
- * @throws InvalidVertexException erro para vertice errado na chamada dos métodos.
- */
- 
+
+    /**
+     * Método para inserir determinado vertice no grafo. Lança uma excepção caso
+     * o vertice já exista.
+     *
+     * @param vElement o vertice a ser inserido.
+     * @return o vertice que foi criado e inserido no grafo.
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * métodos.
+     */
+
     @Override
     public Vertex<V> insertVertex(V vElement) throws InvalidVertexException {
 
@@ -236,14 +293,17 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         listVertices.put(vElement, myVertex);
         return myVertex;
     }
-/**
- * Método para remover um vertice de um grafo.
- * 
- * @param v o vertice a ser removido.
- * @return Retorna o vertice a ser removido caso seja bem sucedida a operação.
- * @throws InvalidVertexException erro para vertice errado na chamada dos métodos.
- */
- 
+
+    /**
+     * Método para remover um vertice de um grafo.
+     *
+     * @param v o vertice a ser removido.
+     * @return Retorna o vertice a ser removido caso seja bem sucedida a
+     * operação.
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * métodos.
+     */
+
     @Override
     public V removeVertex(Vertex<V> v) throws InvalidVertexException {
 
@@ -255,14 +315,16 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         this.listVertices.remove(v.element());
         return v.element();
     }
-/**
- * Método para remover uma aresta.
- * 
- * @param e a aresta a ser removida.
- * @return o elemento que está na aresta.
- * @throws InvalidEdgeException erro para aresta errada na chamada dos métodos.
- */
- 
+
+    /**
+     * Método para remover uma aresta.
+     *
+     * @param e a aresta a ser removida.
+     * @return o elemento que está na aresta.
+     * @throws InvalidEdgeException erro para aresta errada na chamada dos
+     * métodos.
+     */
+
     @Override
     public E removeEdge(Edge<E, V> e) throws InvalidEdgeException {
 
@@ -271,15 +333,17 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         this.listEdges.remove(e.element());
         return e.element();
     }
-/**
- * Método para substituir um vertice por outro.
- * 
- * @param v o vertice existente.
- * @param newElement o novo vertice para substituição.
- * @return Retorna o novo vertice que que foi colocado.
- * @throws InvalidVertexException erro para vertice errado na chamada dos métodos.
- */
- 
+
+    /**
+     * Método para substituir um vertice por outro.
+     *
+     * @param v o vertice existente.
+     * @param newElement o novo vertice para substituição.
+     * @return Retorna o novo vertice que que foi colocado.
+     * @throws InvalidVertexException erro para vertice errado na chamada dos
+     * métodos.
+     */
+
     @Override
     public V replace(Vertex<V> v, V newElement) throws InvalidVertexException {
 
@@ -304,13 +368,16 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         return newElement;
 
     }
-/**
- * Método para substituir uma aresta por outra.
- * @param e a aresta existente que se quer substituir.
- * @param newElement a aresta que se quer colocar.
- * @return Retorna a nova aresta colocada.
- * @throws InvalidEdgeException Método para substituir um veMétodortice por outro.
- */
+
+    /**
+     * Método para substituir uma aresta por outra.
+     *
+     * @param e a aresta existente que se quer substituir.
+     * @param newElement a aresta que se quer colocar.
+     * @return Retorna a nova aresta colocada.
+     * @throws InvalidEdgeException Método para substituir um veMétodortice por
+     * outro.
+     */
     @Override
     public E replace(Edge<E, V> e, E newElement) throws InvalidEdgeException {
 
@@ -325,11 +392,14 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
 
         return newElement;
     }
-/**
- * Metodo para imprimir a quantidade de vertices e arestas existentes no modelo.
- * 
- * @return Retorna e imprime para consola a quantidade de arestas e vertices existentes
- */
+
+    /**
+     * Metodo para imprimir a quantidade de vertices e arestas existentes no
+     * modelo.
+     *
+     * @return Retorna e imprime para consola a quantidade de arestas e vertices
+     * existentes
+     */
     @Override
     public String toString() {
         String str = "Edge (" + listEdges.size() + ")\n";
@@ -376,9 +446,7 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         }
     }
 
-   
-    
-    private class MyVertex implements Vertex<V> {
+    private class MyVertex implements Vertex<V>, Serializable {
 
         private V elem;
 
@@ -420,9 +488,7 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         }
     }
 
-    
-    
-    private class MyEdge implements Edge<E, V> {
+    private class MyEdge implements Edge<E, V>, Serializable {
 
         private E elem;
         private Vertex<V> vertexA, vertexB;
@@ -457,9 +523,9 @@ public class MyDigraph<V, E> implements Digraph<V, E> {
         public String toString() {
             //System.out.printf( "%-15s %15s %n", heading1, heading2);
 //            return vertices()[0].toString() + " -> " + elem.toString() + " -> " + vertices()[1].toString();
-        
+
             return String.format("%-30s -> %-160s -> %-30s", vertices()[0].toString(), elem.toString(), vertices()[1].toString());
-           }
+        }
 
         @Override
         public boolean equals(Object obj) {

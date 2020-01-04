@@ -13,8 +13,8 @@ import java.time.format.DateTimeFormatter;
  *
  * @author Miglob
  */
-public class Log implements Serializable{
-    
+public class Log implements Serializable {
+
     private LocalDateTime timestamp;
     private String destinationPageTitle;
     private String originPageTitle;
@@ -22,11 +22,14 @@ public class Log implements Serializable{
     private int numberOfHyperlinks;
 
     public Log(String destinationPageTitle, String originPageTitle, String url, int numberOfHyperlinks) {
-        this.timestamp = LocalDateTime.now();
-        this.destinationPageTitle = destinationPageTitle;
-        this.originPageTitle = originPageTitle;
-        this.url = url;
-        this.numberOfHyperlinks = numberOfHyperlinks;
+
+        if (destinationPageTitle != null && originPageTitle != null && url != null && numberOfHyperlinks >= 0) {
+            this.timestamp = LocalDateTime.now();
+            this.destinationPageTitle = destinationPageTitle;
+            this.originPageTitle = originPageTitle;
+            this.url = url;
+            this.numberOfHyperlinks = numberOfHyperlinks;
+        }
     }
 
     public LocalDateTime getTimestamp() {
@@ -71,18 +74,16 @@ public class Log implements Serializable{
 
     @Override
     public String toString() {
-        return  getFormattedTimeStamp() + "\t|\t" + destinationPageTitle +"\t|\t" + url + "\t|\t" + originPageTitle + "\t|\t" + numberOfHyperlinks;
+        return getFormattedTimeStamp() + "\t|\t" + destinationPageTitle + "\t|\t" + url + "\t|\t" + originPageTitle + "\t|\t" + numberOfHyperlinks;
     }
-    
-    
-    private String getFormattedTimeStamp(){
-        
+
+    private String getFormattedTimeStamp() {
+
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
-        
+
         String formattedTimeStamp = timestamp.format(dateTimeFormatter);
-        
+
         return formattedTimeStamp;
     }
-    
-    
+
 }

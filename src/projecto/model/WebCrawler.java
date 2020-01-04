@@ -47,7 +47,7 @@ public class WebCrawler {
      * @return A "representação" do digrafo
      */
     public MyDigraph getDigraph() {
-        return digraph;
+        return this.digraph;
     }
 
     /**
@@ -122,6 +122,7 @@ public class WebCrawler {
             }
             firstTime = false;
         }
+        MyDigraph digraph1 = getDigraph();
         originator.setCurrentDigraph(this.digraph);
         caretaker.saveState(originator);
     }
@@ -203,7 +204,8 @@ public class WebCrawler {
                 getDigraph().insertEdge(outbound, inbound, referencedUrl);
             }
         }
-
+        
+        MyDigraph digraph1 = getDigraph();
         originator.setCurrentDigraph(this.digraph);
         caretaker.saveState(originator);
 
@@ -234,5 +236,15 @@ public class WebCrawler {
     public void undo(){
         caretaker.restoreState(this.originator);
         this.digraph = (MyDigraph) originator.getCurrentDigraph();
+    }
+    
+    public WebCrawlerCaretaker getCaretaker(){
+        return caretaker;
+    }
+    
+    public void setCaretaker(WebCrawlerCaretaker caretaker){
+        this.caretaker = caretaker;
+        caretaker.restoreState(this.originator);
+        this.digraph = (MyDigraph) this.originator.getCurrentDigraph();
     }
 }

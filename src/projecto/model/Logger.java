@@ -5,52 +5,66 @@
  */
 package projecto.model;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
+ * 
  *
- * @author Miglob
+ * @author  Miguel Lobato
  */
-public abstract class Logger implements LoggerDAO{
+public class Logger {
 
-    private List<Log> logList;
+    private static final Logger INSTANCE = new Logger();
+    private final String FILE_NAME;
+    private PrintWriter writter;
 
-    public Logger() {
-        this.logList = new ArrayList<>();
+    private Logger() {
+        this.FILE_NAME = "log.txt";
     }
 
-    public List<Log> getLogList() {
-        return logList;
+    /**
+     * Método que devolve a instância única da classe Logger
+     *
+     * @return A instância da classe Logger
+     */
+    public static Logger getInstance() {
+
+        return INSTANCE;
     }
 
-    public void setLogList(List<Log> logList) {
-        this.logList = logList;
-    }
+    /**
+     * 
+     */
+    public void logRegistry(String destinationPageTitle, String originPageTitle, String url, int numberOfHyperlinks) {
 
-    
-    public void clear() {
-        this.logList.clear();
-    }
-
-    public void registerLog(String destinationPageTitle, String url, String originPageTitle, int numberOfHyperlinks) {
-
-        if (destinationPageTitle != null && url != null && originPageTitle != null) {
-            
-            Log log = new Log(destinationPageTitle, originPageTitle, url, numberOfHyperlinks);
-            logList.add(log); //refac
-            save();
-        }
-    }
-    
-    public void registerLog(Log log){
+        Log log = new Log(destinationPageTitle, originPageTitle, url, numberOfHyperlinks);
         
-        if(log != null){
-            logList.add(log);
-            save();
+            openWritter();
+
+            writter.append(log.toString() + "\n");
+
+            writter.close();
+        
+    }
+
+
+    private void openWritter() {
+
+        try {
+            File log = new File(FILE_NAME);
+            if (!log.exists()) {
+
+                log.createNewFile();
+            }
+            writter = new PrintWriter(new FileWriter(log, true));
+        } catch (IOException ex) {
+            System.err.println(ex.getMessage());
         }
     }
-    
-    @Override
-    public abstract void save();
 }

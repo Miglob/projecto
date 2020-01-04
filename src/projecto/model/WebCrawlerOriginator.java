@@ -12,28 +12,31 @@ import projecto.model.TADDiGraph.Digraph;
  * @author Miglob
  */
 public class WebCrawlerOriginator {
-    
+
     private Digraph currentDigraph;
 
     public WebCrawlerOriginator(Digraph currentDigraph) {
-        this.currentDigraph = currentDigraph;
+        if (currentDigraph != null) {
+            this.currentDigraph = (Digraph) currentDigraph.clone();
+        }
     }
 
     public Digraph getCurrentDigraph() {
-        return currentDigraph;
+        //return currentDigraph;
+        return (Digraph) currentDigraph.clone();
     }
 
     public void setCurrentDigraph(Digraph currentDigraph) {
-        this.currentDigraph = currentDigraph;
+        this.currentDigraph = (Digraph) currentDigraph.clone();
     }
-    
-    public WebCrawlerMemento createMemento(){
-        
+
+    public WebCrawlerMemento createMemento() {
+
         return new WebCrawlerMemento(this.currentDigraph);
     }
-    
-    public void setMemento(WebCrawlerMemento memento){
-        
+
+    public void setMemento(WebCrawlerMemento memento) {
+
         this.currentDigraph = memento.getDigraph();
     }
 }

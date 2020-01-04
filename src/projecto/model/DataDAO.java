@@ -9,8 +9,9 @@ package projecto.model;
  *
  * @author Miglob
  */
-public interface LoggerDAO {
+public interface DataDAO {
     
-    public void save();
-    public void load();
+    public void saveData(WebCrawlerCaretaker data);
+    public WebCrawlerCaretaker loadData();
+
 }

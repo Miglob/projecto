@@ -41,7 +41,7 @@ import java.util.Collection;
  * @see Edge
  * @see Vertex
  */
-public interface Digraph<V, E> extends Graph<V, E> {
+public interface Digraph<V, E> extends Graph<V, E>, Cloneable {
     
     /**
      * Returns a vertex's <i>incident</i> edges as a collection.
@@ -150,5 +150,5 @@ public interface Digraph<V, E> extends Graph<V, E> {
             throws InvalidVertexException, InvalidEdgeException;;
 
     
-    
+    public Object clone();
 }

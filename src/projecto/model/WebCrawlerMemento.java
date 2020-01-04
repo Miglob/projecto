@@ -5,18 +5,19 @@
  */
 package projecto.model;
 
+import java.io.Serializable;
 import projecto.model.TADDiGraph.Digraph;
 
 /**
  *
  * @author Miglob
  */
-public class WebCrawlerMemento {
+public class WebCrawlerMemento implements Serializable{
     
     private Digraph digraph;
 
     public WebCrawlerMemento(Digraph digraph) {
-        this.digraph = digraph;
+        this.digraph = (Digraph) digraph.clone();
     }
 
     public Digraph getDigraph() {
@@ -24,7 +25,7 @@ public class WebCrawlerMemento {
     }
 
     public void setDigraph(Digraph digraph) {
-        this.digraph = digraph;
+        this.digraph = (Digraph) digraph.clone();;
     }
     
     
