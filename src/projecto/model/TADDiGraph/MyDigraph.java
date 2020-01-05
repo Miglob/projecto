@@ -484,7 +484,7 @@ public class MyDigraph<V, E> implements Digraph<V, E>, Serializable {
 
         @Override
         public int hashCode() {
-            return 17 * this.hashCode();
+            return 17 * this.elem.hashCode();
         }
     }
 
@@ -543,7 +543,10 @@ public class MyDigraph<V, E> implements Digraph<V, E>, Serializable {
 
         @Override
         public int hashCode() {
-            return 17 * this.hashCode();
+            int hash = 17 * this.elem.hashCode();
+            hash += 17 * this.vertexA.hashCode();
+            hash += 17 * this.vertexB.hashCode();
+            return hash;
         }
     }
 }
