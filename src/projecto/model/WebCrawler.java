@@ -7,20 +7,14 @@ package projecto.model;
 
 import projecto.model.Page;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import projecto.model.TADDiGraph.Digraph;
-import projecto.model.TADDiGraph.Edge;
 import projecto.model.TADDiGraph.MyDigraph;
 import projecto.model.TADDiGraph.Vertex;
 
