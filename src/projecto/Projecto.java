@@ -12,20 +12,12 @@ import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import projecto.model.DataDAO;
 import projecto.model.DataDAOSerialization;
 import projecto.model.Page;
 import projecto.model.ShortestPath;
-import projecto.model.TADDiGraph.MyDigraph;
 import projecto.model.TADDiGraph.Vertex;
-import projecto.model.WebCrawlerCaretaker;
-import projecto.model.WebCrawlerOriginator;
 
 /**
  *
@@ -56,6 +48,9 @@ public class Projecto extends Application {
             for (Vertex v : shortestPath) {
                 System.out.println(v.toString());
             }
+            
+            
+            
             /*
             WebCrawlerCaretaker caretaker = webcrawler.getCaretaker();
             data.saveData(caretaker);

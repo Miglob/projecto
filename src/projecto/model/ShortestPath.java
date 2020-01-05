@@ -24,6 +24,8 @@ public class ShortestPath {
     private Digraph sourceDigraph;
     private Vertex source;
     private Vertex destination;
+    
+    private int test = 0;
 
     public ShortestPath(Digraph sourceDigraph, Vertex source, Vertex destination) {
         this.sourceDigraph = sourceDigraph;
@@ -60,7 +62,8 @@ public class ShortestPath {
         HashMap<Stack<Vertex>, Integer> paths = new HashMap<>();
         Stack<Node> unvisitedNodes = new Stack<>();
         Node current = new Node(source, null);
-        List<Node> visitedNodes = new ArrayList<>();
+        List<Node> visitedNodes = new ArrayList<>(); 
+        
         do {
             if (!visitedNodes.contains(current)) {
                 if (current.getVertex() != null && current.getVertex().equals(this.destination)) {
