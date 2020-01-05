@@ -5,7 +5,7 @@
  */
 package projecto.model;
 
-import projecto.model.Page;
+import com.brunomnsilva.smartgraph.graph.Vertex;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -15,8 +15,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import projecto.model.TADDiGraph.InvalidVertexException;
 import projecto.model.TADDiGraph.MyDigraph;
-import projecto.model.TADDiGraph.Vertex;
 
 /**
  * Classe que define o modelo usado para a criação do digrafo.
@@ -56,7 +56,7 @@ public class WebCrawler {
     public void automaticModelCreation(String url, int numMaxPages) throws IOException {
 
         this.digraph = (MyDigraph) originator.getCurrentDigraph();
-        
+
         Set<String> visited = new HashSet<>();
         Queue<String> queue = new LinkedList();
 
@@ -105,11 +105,17 @@ public class WebCrawler {
                         } else {
                             // cria a ligação entre o nó(página) inicial e os nós(páginas) referidos
                             referencedPage = openUrlAndGetPage(referencedUrl);//testar
-                            outbound = getDigraph().insertVertex(referencedPage);
-                            getDigraph().insertEdge(outbound, inbound, referencedUrl);
-                            visited.add(referencedUrl);
+                            try {
+                                outbound = getDigraph().insertVertex(referencedPage);
+                            } catch (InvalidVertexException ex) {
+                                outbound = getDigraph().getVertex(referencedPage);
+                            } finally {
 
-                            currentNumberOfVisitedPages++;
+                                getDigraph().insertEdge(outbound, inbound, referencedUrl);
+                                visited.add(referencedUrl);
+
+                                currentNumberOfVisitedPages++;
+                            }
                         }
                     }
                 }
@@ -170,9 +176,11 @@ public class WebCrawler {
 //        }
 //    }
     public void iterativeModelCreation(String url) throws IOException {
+        Set<String> visited = new HashSet<>();
+        Queue<String> queue = new LinkedList();
 
         this.digraph = (MyDigraph) originator.getCurrentDigraph();
-        
+
         String referencedUrl = null;
         Vertex inbound = null;
         Vertex outbound = null;
@@ -180,29 +188,44 @@ public class WebCrawler {
         Page referencedPage = null;
 
         // criar o primeiro nó
+        queue.offer(url);
         page = openUrlAndGetPage(url);//se existe
-        inbound = getDigraph().insertVertex(page);
+        try {
+            inbound = getDigraph().insertVertex(page);
+        } catch (InvalidVertexException ex) {
+            inbound = getDigraph().getVertex(page);
+        } finally {
+            visited.add(url);
 
-        // a página existir significa que não houve nenhum erro a abrir/aceder à página
-        if (page.exists()) {
+            // a página existir significa que não houve nenhum erro a abrir/aceder à página
+            if (page.exists()) {
 
-            // vai buscar todas as referencias presentes na página
-            Elements references = openUrlAndGetLinks(url);
-            for (Element link : references) {
-                referencedUrl = link.attr("abs:href");
+                // vai buscar todas as referencias presentes na página
+                Elements references = openUrlAndGetLinks(url);
+                for (Element link : references) {
+                    referencedUrl = link.attr("abs:href");
 
-                // se a página ainda não foi visitada
-                // cria a ligação entre o nó(página) inicial e os nós(páginas) referidos
-                referencedPage = openUrlAndGetPage(referencedUrl);//testar
-                outbound = getDigraph().insertVertex(referencedPage);
-                getDigraph().insertEdge(outbound, inbound, referencedUrl);
+                    if (!visited.contains(referencedUrl)) {
+                        queue.offer(referencedUrl);
+                        // se a página ainda não foi visitada
+                        // cria a ligação entre o nó(página) inicial e os nós(páginas) referidos
+                        referencedPage = openUrlAndGetPage(referencedUrl);//testar
+                        try {
+                            outbound = getDigraph().insertVertex(referencedPage);
+                        } catch (InvalidVertexException ex) {
+                            outbound = getDigraph().getVertex(referencedPage);
+                        } finally {
+                            getDigraph().insertEdge(outbound, inbound, referencedUrl);
+                            visited.add(referencedUrl);
+                        }
+                    }
+                }
             }
-        }
-        
-        MyDigraph digraph1 = getDigraph();
-        originator.setCurrentDigraph(this.digraph);
-        caretaker.saveState(originator);
 
+            MyDigraph digraph1 = getDigraph();
+            originator.setCurrentDigraph(this.digraph);
+            caretaker.saveState(originator);
+        }
     }
 
     private Page openUrlAndGetPage(String urlAddress) {
@@ -227,16 +250,16 @@ public class WebCrawler {
         return doc.select("a[href]");
     }
 
-    public void undo(){
+    public void undo() {
         caretaker.restoreState(this.originator);
         this.digraph = (MyDigraph) originator.getCurrentDigraph();
     }
-    
-    public WebCrawlerCaretaker getCaretaker(){
+
+    public WebCrawlerCaretaker getCaretaker() {
         return caretaker;
     }
-    
-    public void setCaretaker(WebCrawlerCaretaker caretaker){
+
+    public void setCaretaker(WebCrawlerCaretaker caretaker) {
         this.caretaker = caretaker;
         caretaker.restoreState(this.originator);
         this.digraph = (MyDigraph) this.originator.getCurrentDigraph();

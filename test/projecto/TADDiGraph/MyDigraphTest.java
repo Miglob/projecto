@@ -5,9 +5,9 @@
  */
 package projecto.TADDiGraph;
 
-import projecto.model.TADDiGraph.Vertex;
+import com.brunomnsilva.smartgraph.graph.Edge;
+import com.brunomnsilva.smartgraph.graph.Vertex;
 import projecto.model.TADDiGraph.MyDigraph;
-import projecto.model.TADDiGraph.Edge;
 import java.util.Collection;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import projecto.model.Page;
 
 /**
  *

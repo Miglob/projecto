@@ -5,16 +5,15 @@
  */
 package projecto.model.TADDiGraph;
 
+import com.brunomnsilva.smartgraph.graph.Digraph;
+import com.brunomnsilva.smartgraph.graph.Edge;
+import com.brunomnsilva.smartgraph.graph.Vertex;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import projecto.model.Page;
 
 /**
  * Classe que implementa os métodos da interface Digraph. Contem a implementação

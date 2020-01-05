@@ -5,13 +5,12 @@
  */
 package projecto.model;
 
+import com.brunomnsilva.smartgraph.graph.Vertex;
 import java.util.ArrayList;
-import projecto.model.Page;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import projecto.model.TADDiGraph.MyDigraph;
-import projecto.model.TADDiGraph.Vertex;
 
 /**
  * Classe que serve para implementar as estatisticas referentes ao modelo

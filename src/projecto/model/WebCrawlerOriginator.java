@@ -5,7 +5,7 @@
  */
 package projecto.model;
 
-import projecto.model.TADDiGraph.Digraph;
+import com.brunomnsilva.smartgraph.graph.Digraph;
 
 /**
  *

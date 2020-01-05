@@ -5,15 +5,14 @@
  */
 package projecto.model;
 
+import com.brunomnsilva.smartgraph.graph.Digraph;
+import com.brunomnsilva.smartgraph.graph.Edge;
+import com.brunomnsilva.smartgraph.graph.Vertex;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.Stack;
-import projecto.model.TADDiGraph.Digraph;
-import projecto.model.TADDiGraph.Edge;
-import projecto.model.TADDiGraph.Vertex;
 
 /**
  *
