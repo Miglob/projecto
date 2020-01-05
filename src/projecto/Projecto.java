@@ -48,9 +48,10 @@ public class Projecto extends Application {
             for (Vertex v : shortestPath) {
                 System.out.println(v.toString());
             }
+
             
             
-            
+
             /*
             WebCrawlerCaretaker caretaker = webcrawler.getCaretaker();
             data.saveData(caretaker);
