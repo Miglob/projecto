@@ -523,7 +523,7 @@ public class MyDigraph<V, E> implements Digraph<V, E>, Serializable {
             //System.out.printf( "%-15s %15s %n", heading1, heading2);
 //            return vertices()[0].toString() + " -> " + elem.toString() + " -> " + vertices()[1].toString();
 
-            return String.format("%-30s -> %-160s -> %-30s", vertices()[0].toString(), elem.toString(), vertices()[1].toString());
+            return String.format("%-50s -> %-200s -> %-50s", vertices()[0].toString(), elem.toString(), vertices()[1].toString());
         }
 
         @Override

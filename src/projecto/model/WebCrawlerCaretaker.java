@@ -12,7 +12,7 @@ import java.util.Stack;
  *
  * @author Miglob
  */
-public class WebCrawlerCaretaker implements Serializable{
+public class WebCrawlerCaretaker implements Serializable {
 
     private Stack<WebCrawlerMemento> stackMementos;
 
@@ -27,12 +27,12 @@ public class WebCrawlerCaretaker implements Serializable{
     }
 
     public void restoreState(WebCrawlerOriginator originator) {
-        
-        System.out.println("----------------------------antes" + stackMementos.size());
-        
+
+
+        if (stackMementos.size() > 0) {
             WebCrawlerMemento memento = stackMementos.pop();
-            originator.setMemento(memento);            
-            
-        System.out.println("----------------------------depois" + stackMementos.size());
+            originator.setMemento(memento);
+        }
+
     }
 }

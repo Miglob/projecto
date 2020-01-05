@@ -23,7 +23,7 @@ public class ShortestPath {
     private Digraph sourceDigraph;
     private Vertex source;
     private Vertex destination;
-    
+
     private int test = 0;
 
     public ShortestPath(Digraph sourceDigraph, Vertex source, Vertex destination) {
@@ -56,13 +56,49 @@ public class ShortestPath {
         this.destination = destination;
     }
 
+    public List<Stack<Vertex>> shortestPaths() {
+        List<Stack<Vertex>> list = new ArrayList<>();
+        for (Object vertex : this.sourceDigraph.vertices()) {
+            Vertex v = (Vertex) vertex;
+            if (!v.equals(this.source)) {
+                setDestination((Vertex) v);
+                list.add(getShortestPath());
+            }
+        }
+//        this.sourceDigraph.vertices().stream().map((vertex) -> {
+//            setDestination((Vertex) vertex);
+//            return vertex;
+//        }).forEachOrdered((_item) -> {
+//            list.add(getShortestPath());
+//        });
+        return list;
+    }
+
+    public String getShortestPaths() {
+        List<Stack<Vertex>> list = shortestPaths();
+        String str = "";
+
+        for (Stack<Vertex> stack : list) {
+            if (stack.size() > 0) {
+                str += "[";
+                for (int i = stack.size() - 1; i >= 0; i--) {
+                    str += stack.get(i).toString();
+                    if (!(i == 0)) {
+                        str += " -> ";
+                    }
+                }
+                str += "]\n";
+            }
+        }
+        return str;
+    }
+
     public Stack<Vertex> getShortestPath() {
 
         HashMap<Stack<Vertex>, Integer> paths = new HashMap<>();
         Stack<Node> unvisitedNodes = new Stack<>();
         Node current = new Node(source, null);
-        List<Node> visitedNodes = new ArrayList<>(); 
-        
+        List<Node> visitedNodes = new ArrayList<>();
         do {
             if (!visitedNodes.contains(current)) {
                 if (current.getVertex() != null && current.getVertex().equals(this.destination)) {
@@ -77,8 +113,6 @@ public class ShortestPath {
 
                     visitedNodes.add(current);
                 }
-                Node temp = unvisitedNodes.pop();
-                current = new Node(temp.getVertex(), temp.getPredecessor());
             }
             Node temp = unvisitedNodes.pop();
             current = new Node(temp.getVertex(), temp.getPredecessor());
@@ -93,7 +127,7 @@ public class ShortestPath {
             }
         }
 
-        return shortestPath;
+        return (shortestPath == null) ? new Stack<>() : shortestPath;
     }
 
     private Stack<Vertex> tracedBack(Node node) {

@@ -18,7 +18,7 @@ public class Page implements Serializable {
 
     private String title;
     private String url;
-    private boolean exists;
+    public boolean exists;
 
     /**
      *
@@ -65,7 +65,10 @@ public class Page implements Serializable {
      * @param exists um booleano para a definição da existência da página.
      */
     public void setExists(boolean exists) {
-        this.exists = exists;
+            this.exists = exists;
+            if(!exists){
+                this.title = "404 - Page Not Found";
+            }
     }
 
     /**

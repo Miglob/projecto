@@ -124,6 +124,27 @@ public class WebCrawlerStatistics {
 
         System.out.println(str);
     }
+    
+    /**
+     * Método que serve para imprimir as diferentes estatisticas que são criadas
+     * nesta classe.
+     */
+    public String getStatistics() {
+
+        String str = "****** Estatisticas ******";
+        //numero de paginas visitadas
+        str += "\n\n" + getNumberOfVisitedPages();
+        //listagem de vertices e arestas        
+        str += "\n\n" + listEdgesAndVertexs();
+
+        //numero páginas não encontradas
+        str += "\n\n" + getNumberOfNotFoundPages();
+
+        //numero páginas mais referenciadas
+        str += "\n\n" + getMostReferencedPage();
+
+        return str;
+    }
 
     //numero de paginas visitadas
     private int getNumberOfVisitedPages() {

@@ -74,7 +74,10 @@ public class Log implements Serializable {
 
     @Override
     public String toString() {
-        return getFormattedTimeStamp() + "\t|\t" + destinationPageTitle + "\t|\t" + url + "\t|\t" + originPageTitle + "\t|\t" + numberOfHyperlinks;
+        
+        return String.format("%-20s | %-120s | %-200s | %-120s | %-120s", getFormattedTimeStamp(), destinationPageTitle, url, originPageTitle, numberOfHyperlinks);
+        
+        //return getFormattedTimeStamp() + "\t|\t" + destinationPageTitle + "\t|\t" + url + "\t|\t" + originPageTitle + "\t|\t" + numberOfHyperlinks;
     }
 
     private String getFormattedTimeStamp() {

@@ -115,6 +115,8 @@ public class WebCrawler {
                                 visited.add(referencedUrl);
 
                                 currentNumberOfVisitedPages++;
+                                
+                                Logger.getInstance().logRegistry(outbound.element().toString(), inbound.element().toString(), referencedUrl, references.size());
                             }
                         }
                     }
@@ -217,6 +219,8 @@ public class WebCrawler {
                         } finally {
                             getDigraph().insertEdge(outbound, inbound, referencedUrl);
                             visited.add(referencedUrl);
+                            
+                            Logger.getInstance().logRegistry(outbound.element().toString(), inbound.element().toString(), referencedUrl, references.size());
                         }
                     }
                 }
@@ -263,5 +267,10 @@ public class WebCrawler {
         this.caretaker = caretaker;
         caretaker.restoreState(this.originator);
         this.digraph = (MyDigraph) this.originator.getCurrentDigraph();
+    }
+    
+    public Vertex getVertex(String url){
+        Page page = openUrlAndGetPage(url);
+        return this.digraph.getVertex(page);
     }
 }
