@@ -103,6 +103,6 @@ public class Page implements Serializable{
     
     @Override
     public String toString(){
-        return "[" + this.title + "]";
+        return "[" + this.title + "]" + " - " + this.url;
     }
 }
