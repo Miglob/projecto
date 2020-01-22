@@ -17,6 +17,10 @@ import java.util.Date;
  * 
  *
  * @author  Miguel Lobato
+ * 
+ * Classe responsável por registar em ficheiro os registos dos modelos criados.
+ * A classe foi projectada como um Singleton devido à necessidade de ter um único 
+ * acesso aos dados e tornar a opção de registar para o ficheiro log.
  */
 public class Logger {
 
@@ -39,7 +43,11 @@ public class Logger {
     }
 
     /**
-     * 
+     * Método que faz o registo da execução de um modelo
+     * @param destinationPageTitle um texto com a página de destino.
+     * @param originPageTitle um texto com a página de origem.
+     * @param url um texto com o url da página
+     * @param numberOfHyperlinks um inteiro com o número de links da página
      */
     public void logRegistry(String destinationPageTitle, String originPageTitle, String url, int numberOfHyperlinks) {
 

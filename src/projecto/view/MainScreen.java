@@ -5,7 +5,6 @@
  */
 package projecto.view;
 
-import com.brunomnsilva.smartgraph.graph.Digraph;
 import com.brunomnsilva.smartgraph.graphview.SmartCircularSortedPlacementStrategy;
 import com.brunomnsilva.smartgraph.graphview.SmartGraphPanel;
 import com.brunomnsilva.smartgraph.graphview.SmartGraphProperties;
@@ -19,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,7 +27,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -42,6 +39,10 @@ import projecto.model.Page;
 /**
  *
  * @author Miglob
+ * 
+ * Classe que trata da representação gráfica da aplicação.
+ * A WebCrawlerController sincroniza as acções desta view com as acções realizadas
+ * pelas classes do model
  */
 public class MainScreen extends Pane {
 
@@ -173,7 +174,7 @@ public class MainScreen extends Pane {
             switch (((RadioButton) (tglMode.getSelectedToggle())).getText()) {
                 case "Automatico":
                     inputStop = this.stoppageCriteriaText.getText();
-                    stoppage = (inputStop.equals("")) ? 1 : Integer.parseInt(inputStop);
+                    stoppage = (inputStop.equals("")) ? 40 : Integer.parseInt(inputStop);
                     controller.automatic(url, stoppage);
                     break;
                 case "Iterativo":
@@ -242,7 +243,9 @@ public class MainScreen extends Pane {
             }
         });
     }
-
+/**
+ * Método que mostra para o ecrã a representação gráfica da aplicação
+ */
     public void show() {
         this.scene = new Scene(this.hbox);
         this.scene.setOnKeyPressed((event) -> {
@@ -263,7 +266,9 @@ public class MainScreen extends Pane {
         //IMPORTANT - Called after scene is displayed so we can have width and height values
         this.graphView.init();
     }
-
+/**
+ * 
+ */
     public void update() {
         this.graphView.setTheGraph(this.controller.getDigraph());
         this.graphView.update();

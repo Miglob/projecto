@@ -8,6 +8,8 @@ package projecto.model;
 /**
  *
  * @author Miglob
+ * 
+ * Interface utilizada pelas classes Data para salvar e carregar determinado estado
  */
 public interface DataDAO {
     

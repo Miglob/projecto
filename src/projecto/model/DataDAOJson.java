@@ -16,6 +16,9 @@ import java.io.Writer;
 /**
  *
  * @author Miglob
+ * 
+ * Classe DAO que gere os dados guardados em ficheiro no formato Json.
+ * Implementa a interface DataDAO
  */
 public class DataDAOJson implements DataDAO {
 

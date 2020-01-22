@@ -11,6 +11,8 @@ import com.brunomnsilva.smartgraph.graph.Digraph;
 /**
  *
  * @author Miglob
+ * 
+ * Classe que guarda um estado do modelo clonando-o
  */
 public class WebCrawlerMemento implements Serializable{
     
@@ -19,13 +21,19 @@ public class WebCrawlerMemento implements Serializable{
     public WebCrawlerMemento(Digraph digraph) {
         this.digraph = (Digraph) digraph.clone();
     }
-
+/**
+ * Método que nos fornece o digrafo
+ * @return o estado do modelo, do digrafo gerado
+ */
     public Digraph getDigraph() {
         return digraph;
     }
-
+/**
+ * Método para criar o digrafo desejado
+ * @param digraph o modelo desejado
+ */
     public void setDigraph(Digraph digraph) {
-        this.digraph = (Digraph) digraph.clone();;
+        this.digraph = (Digraph) digraph.clone();
     }
     
     

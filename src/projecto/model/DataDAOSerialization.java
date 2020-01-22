@@ -18,6 +18,9 @@ import java.util.logging.Logger;
 /**
  *
  * @author Miglob
+ * 
+ * Classe DAO que faz a serialização dos modelos gerados mantendo a sua persistência
+ * Implementa a interfaceDataDAO
  */
 public class DataDAOSerialization implements DataDAO {
 

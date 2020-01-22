@@ -17,6 +17,11 @@ import java.util.Stack;
 /**
  *
  * @author Miglob
+ *
+ * Classe que através de um modelo nos dá o menor caminho de uma página incial
+ * até uma página de destino
+ *
+ * Contém uma classe privada Node que cria e manipula os nós do modelo.
  */
 public class ShortestPath {
 
@@ -32,30 +37,66 @@ public class ShortestPath {
         this.destination = destination;
     }
 
+    /**
+     * Método para se saber a origem do dígrafo
+     *
+     * @return a origem do digrafo
+     */
     public Digraph getSourceDigraph() {
         return sourceDigraph;
     }
 
+    /**
+     * Método para se designar a origem do digrafo
+     *
+     * @param sourceDigraph a origem do digrafo
+     */
     public void setSourceDigraph(Digraph sourceDigraph) {
         this.sourceDigraph = sourceDigraph;
     }
 
+    /**
+     * Método para se saber o vertice fonte
+     *
+     * @return um vertice que é raiz.
+     */
     public Vertex getSource() {
         return source;
     }
 
+    /**
+     * Método para se designar um vértice fonte
+     *
+     * @param source o vértice fonte
+     */
     public void setSource(Vertex source) {
         this.source = source;
     }
 
+    /**
+     * Método para se saber o vertice de destino
+     *
+     * @return o vertice de destino
+     */
     public Vertex getDestination() {
         return destination;
     }
 
+    /**
+     * Método para designar o vertice de destino
+     *
+     * @param destination o vertice de destino
+     */
     public void setDestination(Vertex destination) {
         this.destination = destination;
     }
 
+    /**
+     * Método para nos dar o menor caminho numa lista ordenada dos vertices de
+     * uma origem a um destino.
+     *
+     * @return uma lista de vertices
+     */
     public List<Stack<Vertex>> shortestPaths() {
         List<Stack<Vertex>> list = new ArrayList<>();
         for (Object vertex : this.sourceDigraph.vertices()) {
@@ -74,6 +115,12 @@ public class ShortestPath {
         return list;
     }
 
+    /**
+     * Método que nos dá em formato de texto a lista ordenada do menor caminho
+     * de um vertice a outro
+     *
+     * @return um texto formatado do menor caminho com os vertices ordenados
+     */
     public String getShortestPaths() {
         List<Stack<Vertex>> list = shortestPaths();
         String str = "";
@@ -93,13 +140,39 @@ public class ShortestPath {
         return str;
     }
 
+    /**
+     * Método que nos fornece em forma de pilha os vertices de um caminho mais
+     * curto entre uma origem e um destino
+     *
+     * @return uma pilha nova se não existir menor caminho ou uma pilha com o
+     * menor caminho
+     */
     public Stack<Vertex> getShortestPath() {
 
         HashMap<Stack<Vertex>, Integer> paths = new HashMap<>();
-        Stack<Node> unvisitedNodes = new Stack<>();
+
+        explore(paths);
+
+        Set<Stack<Vertex>> pathsSet = paths.keySet();
+        Stack<Vertex> shortestPath = null;
+
+        for (Stack<Vertex> path : pathsSet) {
+            if (shortestPath == null || paths.get(path) < paths.get(shortestPath)) {
+                shortestPath = path;
+            }
+        }
+
+        return (shortestPath == null) ? new Stack<>() : shortestPath;
+    }
+
+    private void explore(HashMap<Stack<Vertex>, Integer> paths) {
+
         Node current = new Node(source, null);
         List<Node> visitedNodes = new ArrayList<>();
+        Stack<Node> unvisitedNodes = new Stack<>();
+
         do {
+
             if (!visitedNodes.contains(current)) {
                 if (current.getVertex() != null && current.getVertex().equals(this.destination)) {
                     paths.put(tracedBack(current), current.getDistanceToSource());
@@ -116,18 +189,8 @@ public class ShortestPath {
             }
             Node temp = unvisitedNodes.pop();
             current = new Node(temp.getVertex(), temp.getPredecessor());
+
         } while (unvisitedNodes.size() > 0);
-
-        Set<Stack<Vertex>> pathsSet = paths.keySet();
-        Stack<Vertex> shortestPath = null;
-
-        for (Stack<Vertex> path : pathsSet) {
-            if (shortestPath == null || paths.get(path) < paths.get(shortestPath)) {
-                shortestPath = path;
-            }
-        }
-
-        return (shortestPath == null) ? new Stack<>() : shortestPath;
     }
 
     private Stack<Vertex> tracedBack(Node node) {
